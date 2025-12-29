@@ -7,6 +7,7 @@ export default function Attendance() {
   const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState("");
 
+  // 🔹 Load attendance
   const loadAttendance = async () => {
     try {
       const res = await api.get("attendance/");
@@ -22,12 +23,12 @@ export default function Attendance() {
     loadAttendance();
   }, []);
 
-  /* ✅ MARK PRESENT */
+  // 🔹 Mark present
   const markPresent = async () => {
     setMsg("");
     try {
       const res = await api.post("attendance/");
-      setMsg(res.data.message || "Attendance updated");
+      setMsg(res.data?.message || "✅ Attendance marked successfully");
       loadAttendance();
     } catch (err) {
       console.error(err);
@@ -39,8 +40,7 @@ export default function Attendance() {
     <div
       style={{
         minHeight: "100vh",
-        background:
-          "linear-gradient(135deg,#020617,#0f172a,#020617)",
+        background: "linear-gradient(135deg,#020617,#0f172a,#020617)",
       }}
     >
       <Navbar />
@@ -52,8 +52,7 @@ export default function Attendance() {
           <h2
             className="fw-bold mb-1"
             style={{
-              background:
-                "linear-gradient(90deg,#a5b4fc,#22c55e)",
+              background: "linear-gradient(90deg,#a5b4fc,#22c55e)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -79,20 +78,17 @@ export default function Attendance() {
             borderRadius: "22px",
             background: "rgba(255,255,255,.05)",
             backdropFilter: "blur(14px)",
-            boxShadow:
-              "0 20px 60px rgba(0,0,0,.6)",
+            boxShadow: "0 20px 60px rgba(0,0,0,.6)",
           }}
         >
           <button
             onClick={markPresent}
             className="btn fw-semibold text-white"
             style={{
-              background:
-                "linear-gradient(135deg,#22c55e,#16a34a)",
+              background: "linear-gradient(135deg,#22c55e,#16a34a)",
               borderRadius: "30px",
               padding: "10px 26px",
-              boxShadow:
-                "0 15px 40px rgba(34,197,94,.45)",
+              boxShadow: "0 15px 40px rgba(34,197,94,.45)",
               width: "fit-content",
             }}
           >
@@ -107,8 +103,7 @@ export default function Attendance() {
             borderRadius: "22px",
             background: "rgba(255,255,255,.04)",
             backdropFilter: "blur(14px)",
-            boxShadow:
-              "0 25px 80px rgba(0,0,0,.7)",
+            boxShadow: "0 25px 80px rgba(0,0,0,.7)",
           }}
         >
           {loading ? (
@@ -127,20 +122,13 @@ export default function Attendance() {
               >
                 <thead
                   style={{
-                    background:
-                      "linear-gradient(90deg,#020617,#0f172a)",
+                    background: "linear-gradient(90deg,#020617,#0f172a)",
                   }}
                 >
                   <tr>
-                    <th className="ps-4 text-secondary">
-                      Username
-                    </th>
-                    <th className="text-secondary">
-                      Date
-                    </th>
-                    <th className="text-secondary">
-                      Status
-                    </th>
+                    <th className="ps-4 text-secondary">Username</th>
+                    <th className="text-secondary">Date</th>
+                    <th className="text-secondary">Status</th>
                   </tr>
                 </thead>
 
@@ -149,8 +137,7 @@ export default function Attendance() {
                     <tr
                       key={r.id}
                       style={{
-                        borderColor:
-                          "rgba(255,255,255,.06)",
+                        borderColor: "rgba(255,255,255,.06)",
                       }}
                     >
                       <td className="ps-4 fw-semibold">
@@ -167,18 +154,18 @@ export default function Attendance() {
                             borderRadius: "14px",
                           }}
                         >
-                          {r.present
-                            ? "Present"
-                            : "Absent"}
+                          {r.present ? "Present" : "Absent"}
                         </span>
                       </td>
                     </tr>
                   ))}
                 </tbody>
+
               </table>
             </div>
           )}
         </div>
+
       </div>
     </div>
   );
